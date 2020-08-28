@@ -1,0 +1,9 @@
+a{
+    color: #00bf00;
+}
+
+#mapid {
+    width: 1100px;
+    height: 600px;
+    position: relative;
+}

@@ -1,0 +1,46 @@
+extends ../layout
+
+block content
+  a(href="users") Back
+
+  br
+  br
+  br
+
+  h1 New user
+
+  br
+  br
+
+  form(action='/users/create' method='post')
+    .form-group
+        label(for="name") Name
+        input#name.form-control(type="text" name='name' value= user.name class= errors.name ? 'is-invalid' : '')
+        if errors.name
+            small#nameHelp.text-danger
+                = errors.name.message
+
+    .fom-group
+       label(for="email") Email
+       input#email.form-control(type="text" name='email' value= user.email class= errors.email ? 'is-invalid' : '')
+        if errors.email
+            small#emailHelp.text-danger
+                = errors.email.message
+
+    .fom-group
+       label(for="password") Password
+       input#password.form-control(type="text" name='password' class= errors.password ? 'is-invalid' : '')
+        if errors.password
+            small#passwordHelp.text-danger
+                = errors.password.message
+
+    .fom-group
+       label(for="confirmPassword") Confirm Password
+       input#confirmPassword.form-control(type="text" name='confirmPassword' class= errors.confirmPassword ? 'is-invalid' : '')
+        if errors.confirmPassword
+            small#confirmPasswordHelp.text-danger
+                = errors.confirmPassword.message
+
+    br
+    br
+    input.bin.btn-primary(type="submit" value='OK')  

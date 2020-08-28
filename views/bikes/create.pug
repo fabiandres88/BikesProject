@@ -1,0 +1,32 @@
+extend ../layout
+
+block content
+  a(href='/bikes') Back
+
+  br
+  br
+  br
+
+  h1 Create New Bike
+
+  br
+  br
+
+  form(action='/bikes/create' method='post')
+    //- label(for="id") ID:
+    //- input#id(type="text" name='id')
+    //- br
+    label(for="color") Color:
+    input#color(type="text" name='color')
+    br
+    label(for="modelo") Model:
+    input#model(type="text" name='modelo')
+    br
+    label(for="latitude") Latitude:
+    input#model(type="text" name='latitude')
+    br
+    label(for="length") Length:
+    input#model(type="text" name='length')
+    br
+    br
+    input.bin(type='submit' value='Ok')
