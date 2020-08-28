@@ -2,6 +2,10 @@
   "name": "red-bikes",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": "12.14.1",
+    "npm": "6.13.4"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
@@ -27,7 +31,7 @@
   },
   "devDependencies": {
     "jasmine": "^3.6.1",
-    "nodnpm instaemon": "^2.0.4"
+    "nodemon": "^2.0.4"
   },
   "description": "",
   "main": "app.js",
