@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -33,7 +34,9 @@ app.use(session({
 
 //Mongoose configuration
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://localhost/bikes_network';
+// mongodb+srv://admin-bikes:<password>@bikes-network.xtybg.mongodb.net/<dbname>?retryWrites=true&w=majority
+var mongoDB = process.env.MONGO_URI; 
+// var mongoDB = 'mongodb://localhost/bikes_network';
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 mongoose.Promise= global.Promise;
 const db = mongoose.connection;

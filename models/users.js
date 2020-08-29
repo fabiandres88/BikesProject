@@ -8,7 +8,7 @@ const token = require('../models/token');
 const mailer = require('../mailer/mailer');
 
 const validateEmail = function (email) {
-    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/;
+    const regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
     return regex.test(email);
 };
 
@@ -25,7 +25,7 @@ var userSchema = new Schema({
         lowercase: true,
         unique: true,
         validate: [validateEmail, "Please anter a valid Email"],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/]
+        match: [/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/]
     },
     password: {
         type: String,

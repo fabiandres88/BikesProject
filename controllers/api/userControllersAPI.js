@@ -10,10 +10,13 @@ exports.users_list = function (req, res){
 };
 
 exports.users_create = function (req, res) {
-    var { name } = req.body;
+    var { name, email, password} = req.body;
     var user = new users ();
     user.name= name;
+    user.email= email;
+    user.password= password;
     user.save(function (error){
+        if(error) return res.status(500).json(error);        
         res.status(200).json(user);
     });
 };
