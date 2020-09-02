@@ -28,5 +28,5 @@ module.exports = {
                 res.status(200).json({message: "An email was sending to restore the password."})
             });
         });
-    },
+    },    
 }

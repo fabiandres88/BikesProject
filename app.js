@@ -34,6 +34,8 @@ app.use(session({
 
 //Mongoose configuration
 var mongoose = require('mongoose');
+const { fn } = require('moment');
+const { hasUncaughtExceptionCaptureCallback } = require('process');
 // mongodb+srv://admin-bikes:<password>@bikes-network.xtybg.mongodb.net/<dbname>?retryWrites=true&w=majority
 var mongoDB = process.env.MONGO_URI; 
 // var mongoDB = 'mongodb://localhost/bikes_network';
@@ -104,8 +106,9 @@ app.use('/api/bikes', validateUser, bikesAPIRouter);
 app.use('/api/users', usersAPIRouter);
 app.use('/api/auth', authAPIRouter);
 
-app.use('/privacy_policy', function (req, res){
-  res.sendFile('public/privacy_policy.html');  
+var path = require('path');
+app.use('/privacy_policy', function (req, res){  
+    res.sendFile(path.join(__dirname+ '/public/vendor/privacy_policy.html')); 
 });
 
 // catch 404 and forward to error handler
