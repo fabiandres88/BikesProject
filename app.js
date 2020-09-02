@@ -104,8 +104,8 @@ app.use('/api/bikes', validateUser, bikesAPIRouter);
 app.use('/api/users', usersAPIRouter);
 app.use('/api/auth', authAPIRouter);
 
-app.use('/privacy-policy', function (req, res){
-  res.sendFile('public/privacy_policy.html');
+app.use('/privacy_policy', function (req, res){
+  res.sendFile('public/privacy_policy.html');  
 });
 
 // catch 404 and forward to error handler
