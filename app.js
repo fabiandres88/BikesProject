@@ -111,6 +111,7 @@ app.use('/privacy_policy', function (req, res){
     res.sendFile(path.join(__dirname+ '/public/vendor/privacy_policy.html')); 
 });
 
+//route domain authentica
 app.use('/googlecdf426cd7e052af3',(req, res)=>{
   res.sendFile('public/googlecdf426cd7e052af3.html')
 });
