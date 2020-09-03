@@ -74,10 +74,39 @@ userSchema.methods.sentWelcomeEmail = function (callback) {
         };
 
         mailer.sendMail(mailOptions, function (error) {
-            if (error) { console.log(error.message) };
+            if (error) { return callback(error) };
             console.log('A verification mail has been sent to' + emailDestination + '.');
         });
+        callback(null);
     });
+};
+
+userSchema.statics.findOneOrCreateByGoogle =function findOneOrCreate(condition,callback){
+    const self = this;
+    console.log(condition);
+    self.findOne({
+        $or:[
+            {'googleId': condition.id}, {'email': condition.emails[0].value}            
+        ]}, (error, result)=> {
+                if (result){
+                    callback(error, result)
+                }else {
+                    console.log('---------- CONDITION ----------');
+                    console.log(condition);
+                    let values = {};
+                    values.googleId= condition.id;
+                    values.email= condition.emails[0].values;
+                    values.name= condition.displayName || 'WITHOUT NAME';
+                    values.verified= true;
+                    values.password= condition._json.etag;
+                    console.log('---------- VALUES ----------');
+                    console;log(values);
+                    self.create(values, (error, result)=>{
+                        if (error) {console.log(error);}
+                        return callback (error, result)
+                    })
+                }
+        })
 };
 
 module.exports = mongoose.model('users', userSchema);
