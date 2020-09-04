@@ -23,8 +23,8 @@ let store;
 if (process.env.NODE_ENV === 'development'){
   store= new session.MemoryStore;
 }else{
-  store= new mongoDBStore({
-    url: process.env.MONGO_URI,
+  store= new mongoDBStore({    
+    uri: process.env.MONGO_URI,
     collection: 'sessions'
   });
   store.on('error', function (error){
