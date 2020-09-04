@@ -120,7 +120,7 @@ app.use('/api/users', usersAPIRouter);
 app.use('/api/auth', authAPIRouter);
 
 var path = require('path');
-const { assert } = require('console');
+
 app.use('/privacy_policy', function (req, res){  
     res.sendFile(path.join(__dirname+ '/public/vendor/privacy_policy.html')); 
 });
