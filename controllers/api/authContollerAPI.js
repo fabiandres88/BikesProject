@@ -22,11 +22,24 @@ module.exports = {
     },
     forgotPassword: function (req, res, next) {
         User.findOne({email:req.body.email}, function (error, user){
-            if (!user) return res.status(401).json({message: "User does not exist."});
+            if (!user) return res.status(401).json({message: "User does not exist.", data: null});
             user.resetPassword(function (error){
                 if (error) {return next (error);}
-                res.status(200).json({message: "An email was sending to restore the password."})
+                res.status(200).json({message: "An email was sending to restore the password.", data: null});
             });
         });
-    },    
+    },
+    authFacebookToken: function (req, res, next) {
+        if (req.user){
+            req.user.save().then(() =>{
+                const token = jwt.sign({id: req.user.id}, req.app.get('secretKey'), {expiresIn: '7d'});
+                res.status(200).json({message: "User found or created", data: {user: req.user, token: token}});                
+            }).catch ((error)=>{
+                console.log(error);
+                res.status(500).json({message: error.message});
+            }); 
+        }else {
+            res.status(401);
+        }
+    }    
 }

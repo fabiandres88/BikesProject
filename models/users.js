@@ -36,7 +36,9 @@ var userSchema = new Schema({
     verified: {
         type: Boolean,
         default: false
-    }
+    },
+    googleId: String,
+    facebookId: String
 });
 
 userSchema.plugin(uniqueValidator, { message: 'PATH alreay exist whit other user.' });
@@ -81,32 +83,62 @@ userSchema.methods.sentWelcomeEmail = function (callback) {
     });
 };
 
-userSchema.statics.findOneOrCreateByGoogle =function findOneOrCreate(condition,callback){
+userSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition, callback) {
     const self = this;
     console.log(condition);
     self.findOne({
-        $or:[
-            {'googleId': condition.id}, {'email': condition.emails[0].value}            
-        ]}, (error, result)=> {
-                if (result){
-                    callback(error, result)
-                }else {
-                    console.log('---------- CONDITION ----------');
-                    console.log(condition);
-                    let values = {};
-                    values.googleId= condition.id;
-                    values.email= condition.emails[0].values;
-                    values.name= condition.displayName || 'WITHOUT NAME';
-                    values.verified= true;
-                    values.password= condition._json.etag;
-                    console.log('---------- VALUES ----------');
-                    console;log(values);
-                    self.create(values, (error, result)=>{
-                        if (error) {console.log(error);}
-                        return callback (error, result)
-                    })
-                }
-        })
+        $or: [
+            { 'googleId': condition.id }, { 'email': condition.emails[0].value }
+        ]
+    }, (error, result) => {
+        if (result) {
+            callback(error, result)
+        } else {
+            console.log('---------- CONDITION ----------');
+            console.log(condition);
+            let values = {};
+            values.googleId = condition.id;
+            values.email = condition.emails[0].values;
+            values.name = condition.displayName || 'WITHOUT NAME';
+            values.verified = true;
+            values.password = condition._json.etag;
+            console.log('---------- VALUES ----------');
+            console.log(values);
+            self.create(values, (error, result) => {
+                if (error) { console.log(error); }
+                return callback(error, result)
+            })
+        }
+    })
+};
+
+userSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition, callback) {
+    const self = this;
+    console.log(condition);
+    self.findOne({
+        $or: [
+            { 'facebookId': condition.id }, { 'email': condition.emails[0].value }
+        ]
+    }, (error, result) => {
+        if (result) {
+            callback(error, result)
+        } else {
+            console.log('----------CONDITION----------');
+            console.log(condition);
+            let values = {};
+            values.facebookId = condition.id;
+            values.email = condition.emails[0].values;
+            values.name = condition.displayName || 'WITHOUT NAME';
+            values.verified = true;
+            values.password = condition._json.etag;
+            console.log('---------- VALUES ----------');
+            console.log(values);
+            self.create(values, (error, result) => {
+                if (error) { console.log(error); }
+                return callback(error, result)
+            })
+        }
+    })
 };
 
 module.exports = mongoose.model('users', userSchema);
