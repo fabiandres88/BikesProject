@@ -9,7 +9,7 @@ passport.use(new FacebookTokenStrategy({
     clientSecret: process.env.FACEBOOK_SECRET
 }, function (accessToken, refreshToken, profile, done) {
     try {
-        user.findOneOrCreateByFacebook(profile, function (error, user) {
+        User.findOneOrCreateByFacebook(profile, function (error, user) {
             if (error) console.log('error' + error);
             return done(error, user);
         });
@@ -49,7 +49,7 @@ passport.use(new GoogleStratgey({
     }
 ))
 
-passport.serializeUser(function (error, done) {
+passport.serializeUser(function (error,user, done) {
     done(null, user.id);
 });
 

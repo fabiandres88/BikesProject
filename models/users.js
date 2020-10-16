@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const token = require('../models/token');
 const mailer = require('../mailer/mailer');
+const crypto = require('crypto');
 
 const validateEmail = function (email) {
     const regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
@@ -112,7 +113,7 @@ userSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition,
     })
 };
 
-userSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition, callback) {
+userSchema.statics.findOneOrCreateByFacebook = function findOneOrCreate(condition, callback) {
     const self = this;
     console.log(condition);
     self.findOne({
@@ -130,7 +131,7 @@ userSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition,
             values.email = condition.emails[0].values;
             values.name = condition.displayName || 'WITHOUT NAME';
             values.verified = true;
-            values.password = condition._json.etag;
+            values.password = crypto.randomBytes(16).toString('hex');
             console.log('---------- VALUES ----------');
             console.log(values);
             self.create(values, (error, result) => {
