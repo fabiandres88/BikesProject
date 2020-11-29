@@ -1,3 +1,12 @@
-# BikesProject
+### BikesProject
 
-This project is a template for a website where users can sign up and reserve a bike, the manager can see all his bikes any user on the map. User can login with google or facebook auth.
+This project is a template for a website where users can:
+
+- Sign up.
+- Log In.
+- Make a reserve of a bike.
+- Manage all the bikes os user.
+- User can login with google or facebook auth.
+- Jwt.
+- Deploy with Heroku.
+- Data base with MongoDb Atlas on cloud.

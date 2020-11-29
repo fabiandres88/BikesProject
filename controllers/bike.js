@@ -1,5 +1,5 @@
 var bike = require("../models/bike");
-const { model } = require("../models/bike");
+
 
 exports.bike_list = function (req, res) {
     bike.allBikes(function (error, bikes) {
